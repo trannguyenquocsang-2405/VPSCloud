@@ -44,6 +44,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push Docker images
+        working-directory: ./
         env:
           DOCKER_BUILDKIT: 1
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -56,6 +57,7 @@ jobs:
           docker-compose -f docker-compose.yml push backend
           docker-compose -f docker-compose.yml push frontend
         continue-on-error: false
+
 
       - name: Deploy to production server
         uses: appleboy/ssh-action@v1.0.3
