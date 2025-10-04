@@ -44,16 +44,18 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push Docker images
-        working-directory: ./
+        working-directory: ${{ github.workspace }}
         env:
           DOCKER_BUILDKIT: 1
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTION_STRING }}
         run: |
-          # Build images với BuildKit
-          docker-compose -f docker-compose.yml build \
-            --build-arg BUILDKIT_INLINE_CACHE=1
-          # Push images
+          echo "🧱 Current directory:"
+          pwd
+          echo "📂 List files:"
+          ls -la
+          echo "🚀 Building images..."
+          docker-compose -f docker-compose.yml build --build-arg BUILDKIT_INLINE_CACHE=1
           docker-compose -f docker-compose.yml push backend
           docker-compose -f docker-compose.yml push frontend
         continue-on-error: false
