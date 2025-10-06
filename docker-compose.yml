@@ -4,29 +4,41 @@ services:
     build:
       context: ./Server
       dockerfile: Dockerfile
+    container_name: social_backend
     ports:
       - "8080:8080"
     environment:
       - MONGO_URI=mongodb://mongo:27017/mydb
     depends_on:
       - mongo
+    networks:
+      - social-net
 
   frontend:
     build:
       context: ./client
       dockerfile: Dockerfile
+    container_name: social_frontend
     ports:
       - "3000:3000"
     depends_on:
       - backend
+    networks:
+      - social-net
 
   mongo:
     image: mongo:6.0
-    container_name: mongo
+    container_name: social_mongo
     ports:
       - "27017:27017"
     volumes:
-      - mongo_data:/data/db
+      - social_mongo_data:/data/db
+    networks:
+      - social-net
 
 volumes:
-  mongo_data:
+  social_mongo_data:
+
+networks:
+  social-net:
+    driver: bridge
