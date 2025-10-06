@@ -26,12 +26,16 @@ app.use(cors());
 dotenv.config();
 
 mongoose.connect
-    (process.env.MONGO_DB, { useNewUrlParser: true, useUnifiedTopology: true }
+    (process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }
     ).then(() =>
         app.listen(process.env.PORT, () => console.log(`listening at ${process.env.PORT}`))
-    ).catch((error) =>
-        console.log('error')
-    )
+    ).catch((error) => {
+        console.error("❌ MongoDB connection failed:", error);
+        process.exit(1);
+    }
+);
+
+
 
 
 // uses of routes
