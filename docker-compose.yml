@@ -6,7 +6,6 @@ services:
       - "8080:8080"
     environment:
       - MONGO_URI=mongodb://mongo:27017/mydb
-      - PORT=8080
     depends_on:
       - mongo
     networks:
@@ -37,7 +36,4 @@ volumes:
 
 networks:
   social-net:
-    name: social-media-web-app-mern-stack--master_social-net
-    external: true
-
-
+    driver: bridge
