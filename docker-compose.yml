@@ -1,6 +1,6 @@
 services:
   backend:
-    image: social-media-web-app-mern-stack--master-backend:latest
+    image: marubouzo/social-media-backend:latest
     container_name: social_backend
     ports:
       - "8080:8080"
@@ -8,18 +8,16 @@ services:
       - MONGO_URI=mongodb://mongo:27017/mydb
     depends_on:
       - mongo
-    pull_policy: never   # 🔥 Dùng local image, không pull từ Docker Hub
     networks:
       - social-net
 
   frontend:
-    image: social-media-web-app-mern-stack--master-frontend:latest
+    image: marubouzo/clinic_booking
     container_name: social_frontend
     ports:
       - "3000:3000"
     depends_on:
       - backend
-    pull_policy: never   # 🔥 Dùng local image, không pull từ Docker Hub
     networks:
       - social-net
 
