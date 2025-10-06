@@ -1,6 +1,6 @@
 services:
   backend:
-    image: marubouzo/clinic_booking:latest
+    image: social-media-web-app-mern-stack--master-backend:latest
     container_name: social_backend
     ports:
       - "8080:8080"
@@ -12,7 +12,7 @@ services:
       - social-net
 
   frontend:
-    image: marubouzo/clinic_booking:latest
+    image: social-media-web-app-mern-stack--master-frontend:latest
     container_name: social_frontend
     ports:
       - "3000:3000"
