@@ -25,15 +25,16 @@ app.use(cors());
 
 dotenv.config();
 
-mongoose.connect
-    (process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }
-    ).then(() =>
-        app.listen(process.env.PORT, () => console.log(`listening at ${process.env.PORT}`))
-    ).catch((error) => {
-        console.error("❌ MongoDB connection failed:", error);
-        process.exit(1);
-    }
-);
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log(`✅ Connected to MongoDB`);
+    app.listen(process.env.PORT || 8080, () => console.log(`🚀 Server running on port ${process.env.PORT || 8080}`));
+  })
+  .catch((error) => {
+    console.error("❌ MongoDB connection failed:", error.message);
+    process.exit(1);
+  });
+
 
 
 
