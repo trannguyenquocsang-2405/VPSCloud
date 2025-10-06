@@ -41,7 +41,7 @@ export const updatePost = async (req, res) => {
             await post.updateOne({ $set: req.body })
             res.status(200).json("Post Updated Successfully!")
         } else {
-            res.status(403).json("Action forbidden")
+            res.status(403).json("action forbidden")
         }
     } catch (error) {
         res.status(500).json(error)
