@@ -82,27 +82,27 @@ jobs:
             echo "${{ secrets.DOCKER_COMPOSE_FILE }}" > docker-compose.yml
 
             # Kiểm tra file docker-compose
-            docker-compose config || { echo "Docker Compose file lỗi"; exit 1; }
+            docker compose config || { echo "Docker Compose file lỗi"; exit 1; }
 
             # Login Docker Hub
             echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
 
             # Pull image mới
-            docker-compose pull
+            docker compose pull
 
             # Stop & remove container cũ
             docker ps -a --filter "name=social_" --format '{{.ID}}' | xargs -r docker stop || true
             docker ps -a --filter "name=social_" --format '{{.ID}}' | xargs -r docker rm || true
 
             # Start container mới
-            docker-compose up -d
+            docker compose up -d
 
             # Dọn ảnh cũ
             docker image prune -f
 
             # Wait kiểm tra container chạy
             timeout 60 bash -c '
-              until docker-compose ps | grep "Up"; do
+              until docker compose ps | grep "Up"; do
                 echo "Waiting for containers...";
                 sleep 5;
               done
