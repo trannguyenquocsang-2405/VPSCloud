@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: 'http://localhost:4000' });
+const API = axios.create({ baseURL: 'http://backend:8080' });
 
 
 API.interceptors.request.use((req) => {
