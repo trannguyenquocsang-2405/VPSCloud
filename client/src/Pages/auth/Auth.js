@@ -4,7 +4,6 @@ import Logo from '../../Img/logo.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { logIn, signUp } from '../../actions/AuthAction.js';
 
-
 const Auth = () => {
 
     const [isSignUp, setIsSignUp] = useState(true);
