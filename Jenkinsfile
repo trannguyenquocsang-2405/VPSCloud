@@ -9,7 +9,7 @@ pipeline {
         SERVER_SSH_KEY = credentials('server-ssh-key')
 
         // 🔹 Host EC2
-        SERVER_HOST = '43.220.2.185'
+        SERVER_HOST = '13.231.34.129'
         SERVER_USERNAME = 'ubuntu'
     }
 
