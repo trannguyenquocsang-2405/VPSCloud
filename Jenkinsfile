@@ -21,7 +21,6 @@ pipeline {
                 checkout scm
             }
         }
-
         stage('Build Docker images') {
             steps {
                 echo "🧱 Building Docker images..."
