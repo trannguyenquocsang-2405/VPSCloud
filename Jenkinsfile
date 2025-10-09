@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // 🔹 Docker Hub credential (Username with password)
-        DOCKER_HUB = credentials('dockerhub-username')
+        DOCKER_HUB = credentials('docker-hub')
         
         // 🔹 SSH Key to EC2
         SERVER_SSH_KEY = credentials('server-ssh-key')
