@@ -9,4 +9,5 @@ router.put('/:id', updatePost);
 router.delete('/:id', deletePost);
 router.put('/:id/like_dislike', like_dislike_Post);
 router.get('/:id/timeline', timeline);
+
 export default router;
