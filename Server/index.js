@@ -39,7 +39,7 @@ mongoose.connect(process.env.MONGO_DB, {
     app.listen(process.env.PORT, () => console.log(`🚀 Server listening at ${process.env.PORT}`))
 ).catch((error) => {
     // Quan trọng: In ra lỗi chi tiết để debug
-    console.error('❌ mongoDB connection failed:', error);
+    console.error('❌ MongoDB connection failed:', error);
     process.exit(1); // Buộc backend container dừng lại nếu thất bại
 });
 
