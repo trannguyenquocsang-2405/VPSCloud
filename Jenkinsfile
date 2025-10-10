@@ -32,7 +32,7 @@ pipeline {
                 docker build -t $DOCKER_USERNAME/social-media-backend:latest ./Server
 
                 # Build frontend
-                docker build -t $DOCKER_USERNAME/social-media-frontend:latest ./client
+                docker build -t $DOCKER_USERNAME/clinic_booking:latest ./client
                 '''
             }
         }
@@ -44,7 +44,7 @@ pipeline {
                 echo $DOCKER_HUB_PSW | docker login -u $DOCKER_HUB_USR --password-stdin
 
                 docker push $DOCKER_USERNAME/social-media-backend:latest
-                docker push $DOCKER_USERNAME/social-media-frontend:latest
+                docker push $DOCKER_USERNAME/clinic_booking:latest
                 '''
             }
         }
@@ -70,7 +70,7 @@ pipeline {
 
                     echo '🐳 Pulling latest images from Docker Hub...'
                     docker pull $DOCKER_USERNAME/social-media-backend:latest
-                    docker pull $DOCKER_USERNAME/social-media-frontend:latest
+                    docker pull $DOCKER_USERNAME/clinic_booking:latest
 
                     echo '🛑 Stopping old containers...'
                     docker compose down || true
