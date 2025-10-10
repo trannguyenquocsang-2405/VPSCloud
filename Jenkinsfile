@@ -29,7 +29,7 @@ pipeline {
                 echo "🧱 Building Docker images..."
                 sh '''
                 # Build backend
-                docker build -t $DOCKER_USERNAME/social-media-backend:latest ./server
+                docker build -t $DOCKER_USERNAME/social-media-backend:latest ./Server
 
                 # Build frontend
                 docker build -t $DOCKER_USERNAME/social-media-frontend:latest ./client
