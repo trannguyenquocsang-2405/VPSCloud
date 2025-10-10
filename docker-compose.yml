@@ -14,7 +14,7 @@ services:
       - social-net
 
   frontend:
-    image: marubouzo/clinic_booking
+    image: marubouzo/clinic_booking:latest
     container_name: social_frontend
     ports:
       - "3000:3000"
