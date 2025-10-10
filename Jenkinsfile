@@ -11,31 +11,40 @@ pipeline {
         // 🔹 Host EC2
         SERVER_HOST = '43.207.201.56'
         SERVER_USERNAME = 'ubuntu'
+
+        // 🔹 Docker Hub repo name
+        DOCKER_USERNAME = 'marubouzo'
     }
 
     stages {
-
         stage('Checkout source code') {
             steps {
                 echo "📦 Checking out source code..."
                 checkout scm
             }
         }
+
         stage('Build Docker images') {
             steps {
                 echo "🧱 Building Docker images..."
                 sh '''
-                docker compose build
+                # Build backend
+                docker build -t $DOCKER_USERNAME/social-media-backend:latest ./server
+
+                # Build frontend
+                docker build -t $DOCKER_USERNAME/social-media-frontend:latest ./client
                 '''
             }
         }
 
-        stage('Login & Push to Docker Hub') {
+        stage('Push images to Docker Hub') {
             steps {
-                echo "🐳 Logging in and pushing images to Docker Hub..."
+                echo "🐳 Logging in & pushing images to Docker Hub..."
                 sh '''
                 echo $DOCKER_HUB_PSW | docker login -u $DOCKER_HUB_USR --password-stdin
-                docker compose push
+
+                docker push $DOCKER_USERNAME/social-media-backend:latest
+                docker push $DOCKER_USERNAME/social-media-frontend:latest
                 '''
             }
         }
@@ -59,22 +68,19 @@ pipeline {
                         git clone https://github.com/marubouzo/social-media.git . || true
                     fi
 
-                    echo '🐳 Pulling latest images...'
-                    docker compose pull
+                    echo '🐳 Pulling latest images from Docker Hub...'
+                    docker pull $DOCKER_USERNAME/social-media-backend:latest
+                    docker pull $DOCKER_USERNAME/social-media-frontend:latest
 
-                    echo '🛑 Stopping & removing old containers if exist...'
+                    echo '🛑 Stopping old containers...'
                     docker compose down || true
-                    docker rm -f social_frontend social_backend social_mongo || true
-
-                    echo '🧼 Remove unused networks (optional)'
-                    docker network prune -f || true
 
                     echo '🔥 Starting new containers...'
-                    docker compose up -d --pull always
+                    docker compose up -d
 
-                    echo '🧹 Cleaning up old images...'
+                    echo '🧹 Cleaning old images...'
                     docker image prune -f
-                "
+                    "
                     '''
                 }
             }
