@@ -61,8 +61,13 @@ pipeline {
                         echo "🐳 Pulling latest images..."
                         docker compose pull
 
-                        echo "🛑 Stopping old containers..."
-                        docker compose down
+                        echo "🛑 Stopping & removing old containers if exist..."
+                        docker rm -f social_frontend || true
+                        docker rm -f social_backend || true
+                        docker rm -f social_mongo || true
+
+                        echo "🧼 Remove unused networks (optional)"
+                        docker network prune -f || true
 
                         echo "🔥 Starting new containers..."
                         docker compose up -d
