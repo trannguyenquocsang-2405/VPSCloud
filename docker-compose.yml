@@ -1,5 +1,7 @@
 services:
   backend:
+    build:
+      context: ./Server
     image: marubouzo/social-media-backend:latest
     container_name: social_backend
     ports:
@@ -14,6 +16,8 @@ services:
       - social-net
 
   frontend:
+    build:
+      context: ./client
     image: marubouzo/clinic_booking:latest
     container_name: social_frontend
     ports:
