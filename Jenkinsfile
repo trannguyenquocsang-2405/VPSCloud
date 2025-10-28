@@ -62,8 +62,8 @@ pipeline {
 
                     echo '📥 Pulling latest code...'
                     if [ -d .git ]; then
-                        git checkout main || true
-                        git pull origin main || true
+                        git checkout master || true
+                        git pull origin master || true
                     else
                         git clone https://github.com/marubouzo/social-media.git . || true
                     fi
